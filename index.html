@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ffeaa7);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #000000;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .message {
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.4;
+            font-size: 1em;
+            background: hsla(0, 100%, 97%, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #e17055;
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+        .cake {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: spin 3s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        button {
+            background: #00b894;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        button:hover {
+            background: #00a085;
+            transform: scale(1.1);
+        }
+        #birthday-texts {
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            font-weight: normal;
+        }
+        #birthday-texts p {
+            font-weight: normal;
+            font-size: 1.1em;
+            line-height: 1.5;
+            margin: 0 0 25px 0;
+            text-align: left;
+            padding: 0;
+            width: 100%;
+        }
+        #birthday-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 20px;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .message.celebrating {
+            max-width: 1000px;
+            padding: 80px 60px;
+            font-size: 1.1em;
+        }
+        .message {
+            transition: all 0.8s ease;
+        }
+        #birthday-texts p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <h1>Happy Birthday, Ilink! 🎂🎈</h1>
+        <div class="cake">🎂</div>
+        <button id="musicBtn" onclick="playMusicAndToggle()">Play Music 🎵</button>
+        <button id="celebrateBtn" onclick="showBirthdayMessage()" style="display: none;">Celebrate your day 🎉</button>
+        <img id="birthday-image" src="IMG_7721.webp" alt="Birthday Image" style="display: none; width: 100%; max-width: 600px; border-radius: 20px; margin: 20px auto;">
+        <div id="birthday-texts">
+            <!-- Content injected via JS -->
+        </div>
+    </div>
+    <script>
+let birthdayTextsVisible = false;
+        let imageVisible = false;
+function playMusicAndToggle() {
+            const audio = new Audio('twisterium-happy-birthday-482411.mp3');
+            audio.play().catch(e => console.log('Audio play failed'));
+            const musicBtn = document.getElementById('musicBtn');
+            const messageBox = document.querySelector('.message');
+            const birthdayImage = document.getElementById('birthday-image');
+            
+            musicBtn.style.background = '#e74c3c';
+            messageBox.classList.add('celebrating');
+            imageVisible = true;
+            birthdayImage.style.display = 'block';
+            
+            audio.onended = () => {
+                musicBtn.style.background = '#00b894';
+                messageBox.classList.remove('celebrating');
+                imageVisible = false;
+                birthdayImage.style.display = 'none';
+            };
+            document.getElementById('celebrateBtn').style.display = 'inline-block';
+        }
+
+function showBirthdayMessage() {
+            const celebrateBtn = document.getElementById('celebrateBtn');
+            const birthdayTexts = document.getElementById('birthday-texts');
+            const birthdayImage = document.getElementById('birthday-image');
+            
+            if (!birthdayTextsVisible) {
+                birthdayTexts.innerHTML = `
+                    <p>On this special day, you mean a lot to people around you.</p>
+                    <p>You light up every room you walk into.</p>
+                    <p>Hope this year brings you love laughter and money so you could share w me.</p>
+                    <p>You deserve the absolute best! ❤️</p>
+                    <p>And also kom oy ke baok tt AHAAHAHAAHA 🎉</p>
+                `;
+                birthdayTexts.style.opacity = '1';
+                birthdayImage.style.display = 'none';
+                imageVisible = false;
+                celebrateBtn.style.background = '#e74c3c';
+                celebrateBtn.textContent = 'Hide message ❤️';
+                birthdayTextsVisible = true;
+            } else {
+                birthdayTexts.style.opacity = '0';
+                setTimeout(() => {
+                    birthdayTexts.innerHTML = '';
+                }, 500);
+                if (imageVisible) {
+                    birthdayImage.style.display = 'block';
+                }
+                celebrateBtn.style.background = '#00b894';
+                celebrateBtn.textContent = 'Celebrate your day 🎉';
+                birthdayTextsVisible = false;
+            }
+        }
+    </script>
+</body>
+</html>
