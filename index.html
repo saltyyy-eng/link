@@ -89,6 +89,7 @@
             max-width: 600px;
             border-radius: 20px;
             margin: 20px auto;
+            display: block;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         .message.celebrating {
@@ -106,7 +107,7 @@
 </head>
 <body>
     <div class="message">
-        <h1>Happy Birthday, II-link! 🎂🎈</h1>
+        <h1>Happy Birthday, Ilink! 🎂🎈</h1>
         <div class="cake">🎂</div>
         <button id="musicBtn" onclick="playMusicAndToggle()">Play Music 🎵</button>
         <button id="celebrateBtn" onclick="showBirthdayMessage()" style="display: none;">Celebrate your day 🎉</button>
@@ -164,7 +165,7 @@ function showBirthdayMessage() {
                     birthdayTexts.innerHTML = '';
                 }, 500);
                 if (imageVisible) {
-                    birthdayImage.style.display
+                    birthdayImage.style.display = 'block';
                 }
                 celebrateBtn.style.background = '#00b894';
                 celebrateBtn.textContent = 'Celebrate your day 🎉';
